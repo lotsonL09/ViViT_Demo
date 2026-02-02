@@ -23,12 +23,12 @@ dataset/
 │ │ ├── video_001.mp4
 │ │ └── ...
 │ └── normal/
-│   ├── video_001.mp4
-│   └── ...
+│ ├── video_001.mp4
+│ └── ...
 └── validation/
-  ├── lifting/
-  ├── placing/
-  └── normal/
+├── lifting/
+├── placing/
+└── normal/
 
 To increase the effective size and diversity of the training data, **data augmentation techniques** were applied during preprocessing. These augmentations introduce controlled variations in the input data, improving the model’s robustness to changes in appearance and motion patterns.
 
