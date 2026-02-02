@@ -13,6 +13,7 @@ The model was trained using a structured dataset built from video recordings obt
 ### 1.1 Data Organization
 Video data was organized at the directory level to reflect the training labels. Each subdirectory corresponds to a specific monitoring category.
 
+```
 dataset/
 ├── train/
 │ ├── lifting/
@@ -29,6 +30,7 @@ dataset/
 ├── lifting/
 ├── placing/
 └── normal/
+```
 
 To increase the effective size and diversity of the training data, **data augmentation techniques** were applied during preprocessing. These augmentations introduce controlled variations in the input data, improving the model’s robustness to changes in appearance and motion patterns.
 
@@ -151,7 +153,7 @@ python main.py
 ```
 
 ### 3.6 Deployment Overview
-
+```
 User (Web Browser)
         │
         ▼
@@ -165,4 +167,4 @@ Action Recognition Model
         │
         ▼
 Predicted Action
-
+```
