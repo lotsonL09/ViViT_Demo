@@ -186,6 +186,7 @@ body {
     padding: 15px;
 }
 
+
 /* Responsivo para pantallas pequeñas */
 @media (max-width: 768px) {
     .dashboard, .model-details {

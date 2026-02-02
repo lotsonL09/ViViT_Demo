@@ -1,17 +1,12 @@
 from fastapi import FastAPI,Request,File,UploadFile
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from data_augmentation import get_frames,ViViTFactorized,encode_frame_to_base64
+
 import uvicorn
 import shutil
 import os
-
 import torch
-
-from data_augmentation import get_frames,ViViTFactorized,encode_frame_to_base64
-
-import matplotlib.pyplot as plt
-
-import cv2
 
 app=FastAPI()
 
@@ -19,10 +14,10 @@ app.mount("/static",StaticFiles(directory="static"),name="static")
 
 templates=Jinja2Templates(directory="templates")
 
-"""
+
 device='cuda' if torch.cuda.is_available() else 'cpu'
 device
-"""
+
 @app.get("/")
 async def home(request:Request):
     context={
@@ -30,7 +25,7 @@ async def home(request:Request):
     }
     return templates.TemplateResponse("interface.html",context)
 
-"""
+
 classes=["Actividad normal","Dejar","Levantar"]
 
 ViVit_instance=ViViTFactorized(in_channels=3,num_classes=3,num_frames=10,img_size=64)
@@ -44,11 +39,8 @@ ViVit_instance.eval()
 
 @app.post('/send_video')
 async def get_video(video:UploadFile = File(...)):
-    #content = await video.read()
     
     temp_path=f"temp_{video.filename}"
-
-    
 
     with open(temp_path,'wb') as buffer:
         shutil.copyfileobj(video.file,buffer)
@@ -56,10 +48,6 @@ async def get_video(video:UploadFile = File(...)):
     frames=get_frames(temp_path,n_frames=10)
 
     os.remove(temp_path)
-
-    ########### Prediction of the model
-
-    #adding batchsize
 
     frames=frames.unsqueeze(dim=0)
 
@@ -69,11 +57,6 @@ async def get_video(video:UploadFile = File(...)):
     pred_label=torch.argmax(torch.softmax(prediction,dim=1),dim=1)
 
     model_response=classes[pred_label]
-
-    ############
-
-
-    #print(content)
 
     video.file.seek(0)
 
@@ -91,7 +74,7 @@ async def get_video(video:UploadFile = File(...)):
     return {'response':"Recibido",
             "model_response":model_response,
             "frames":encoder_frames}
-"""
+
 
 
 if __name__ == "__main__":
