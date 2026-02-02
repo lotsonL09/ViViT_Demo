@@ -1,124 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INTERFACE-ViViT</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css?v=1.3') }}">
-    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
+
 <body>
-    <header class="title">
-        <h1>Action Recognition DEMO</h1>
-    </header>
-
-    <div class="main-display">
-        <section class="display">
-
-            <form method="post" enctype="multipart/form-data" onsubmit=sendData(event)>
-
-                <button type="submit" class="sendVideo">Subir video</button>
-
-                <div class="container">
-                
-                    <input type="file" accept="video/*" id="file" class="upload-input" name="video">
-                    <label for="file" class="upload-label"></label>
-
-
-                    <div class="video-container">
-                        <video id="videoPlayer" width="270" height="480" loop muted></video>
-                    </div>
-                </div>
-
-            </form>
-
-        </section>
-        <section class="prediction">
-            <h1>Prediction</h1>
-            <p class="model-response"></p>
-        </section>
-        <section class="frames-display">
-            <h1>Fotogramas analizados</h1>
-            <div class="frames">
-
+    <div class="main-container">
+        <header class="top-bar">
+            <span class="user-info">William Valencia Macalupú</span>
+            <div class="social-info">
+                <span><i class="fab fa-github"></i> lotsonL09</span>
+                <span><i class="fas fa-envelope"></i> willimaca09ac@gmail.com</span>
             </div>
-        </section>
+        </header>
+
+        <header class="main-title">
+            <h1 class="glow-text">ACTION RECOGNITION</h1>
+            <h2 class="glow-text large">DEMO</h2>
+        </header>
+
+        <div class="dashboard">
+            <section class="upload-section">
+                <div class="label-pill">UPLOAD VIDEO</div>
+
+                <form method="post" enctype="multipart/form-data" onsubmit="sendData(event)" class="upload-form">
+                    <div class="drop-zone">
+                        <input type="file" accept="video/*" id="file" class="upload-input" name="video">
+
+                        <label for="file" class="upload-label" id="label-icon">
+                            <svg class="cloud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M12 16V11M12 11L9.5 13.5M12 11L14.5 13.5M20 10c0-3.314-2.686-6-6-6-1.921 0-3.633.904-4.73 2.308C8.804 6.113 8.411 6 8 6 5.791 6 4 7.791 4 10c0 .243.022.48.064.71C2.85 11.45 2 12.625 2 14c0 2.21 1.79 4 4 4h13c2.21 0 4-1.79 4-4 0-1.631-1.127-3-2.583-3.31.054-.225.083-.459.083-.69z"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </label>
+
+                        <div class="video-preview">
+                            <video id="videoPlayer" loop muted></video>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="analyze-btn">ANALYZE</button>
+                </form>
+            </section>
+
+            <section class="results-section">
+                <div class="label-pill">FRAMES ANALYZED</div>
+
+                <div class="display-panel">
+                    <div class="prediction-overlay">
+                        <p class="model-response"></p>
+                    </div>
+                    <div class="frames-grid"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="model-details">
+            <section class="detail-box">
+                <div class="label-pill">TUBELET EMBEDDING</div>
+                <div class="image-container">
+                    <img src="{{ url_for('static', path='/images/tubelet.png') }}" alt="Tubelet Embedding">
+                </div>
+            </section>
+        
+            <section class="detail-box">
+                <div class="label-pill">ARCHITECTURE</div>
+                <div class="image-container">
+                    <img src="{{ url_for('static', path='/images/architecture.png') }}" alt="ViViT Architecture">
+                </div>
+            </section>
+        </div>
     </div>
-    
 
     <script>
-
         const videoInput = document.querySelector("#file");
-        const videoPlayer=document.querySelector('#videoPlayer');
-        const label=document.querySelector('.upload-label');
+        const videoPlayer = document.querySelector('#videoPlayer');
+        const labelIcon = document.querySelector('#label-icon');
+        const button = document.querySelector('.analyze-btn');
 
-        const button=document.querySelector('.sendVideo');
-
-        videoInput.addEventListener('change',function(){
-            const file=this.files[0];
-            if (file){
-                const videoURL=URL.createObjectURL(file);
-
-                label.style.display='none';
-
-                videoPlayer.style.width='270';
-                videoPlayer.style.height='480';
-
-                videoPlayer.src=videoURL;
+        videoInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const videoURL = URL.createObjectURL(file);
+                labelIcon.style.display = 'none'; // Oculta la nube
+                videoPlayer.style.display = 'block'; // Muestra el video
+                videoPlayer.src = videoURL;
                 videoPlayer.load();
                 videoPlayer.play();
-
             }
         });
 
-        async function sendData(event){
-            
-            
+        async function sendData(event) {
             event.preventDefault();
             const form = event.target;
-            const formData=new FormData(form);
+            const formData = new FormData(form);
 
             try {
+                button.innerHTML = 'ANALYZING...';
+                button.classList.add('loading');
 
-                button.innerHTML='';
-                button.innerHTML='Analizando video ...';
-
-                button.style.width='240px';
-
-                const response = await fetch('/send_video',{
-                    method:'POST',
-                    body:formData
+                const response = await fetch('/send_video', {
+                    method: 'POST',
+                    body: formData
                 });
 
-
-                if (!response) throw new Error("Error a(l subir el video");
-                
+                if (!response.ok) throw new Error("Error al subir el video");
 
                 const data = await response.json();
 
-                const container=document.querySelector(".frames");
-                container.innerHTML='';
-                data.frames.forEach(base64=>{
-                    const img=document.createElement("img");
-                    img.classList.add("frame");
-                    img.src="data:image/jpeg;base64,"+base64;
+                // Manejo de frames
+                const container = document.querySelector(".frames-grid");
+                container.innerHTML = '';
+                data.frames.forEach(base64 => {
+                    const img = document.createElement("img");
+                    img.classList.add("frame-item");
+                    img.src = "data:image/jpeg;base64," + base64;
                     container.appendChild(img);
-
                 });
-                
-                const prediction=document.querySelector('.model-response');
-                prediction.innerHTML='La acción detectada es: '+data["model_response"];
 
-                button.innerHTML='Subir video';
-                button.style.width='160px';
-            }
-            catch (err){
-                console.log("error");
-            }
+                // Manejo de predicción
+                const prediction = document.querySelector('.model-response');
+                prediction.innerHTML = 'DETECTION: ' + data["model_response"];
 
+                button.innerHTML = 'ANALYZE';
+                button.classList.remove('loading');
+            } catch (err) {
+                console.error(err);
+                button.innerHTML = 'ERROR';
+            }
         }
-
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 </body>
+
 </html>

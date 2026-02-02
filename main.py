@@ -19,9 +19,10 @@ app.mount("/static",StaticFiles(directory="static"),name="static")
 
 templates=Jinja2Templates(directory="templates")
 
+"""
 device='cuda' if torch.cuda.is_available() else 'cpu'
 device
-
+"""
 @app.get("/")
 async def home(request:Request):
     context={
@@ -29,6 +30,7 @@ async def home(request:Request):
     }
     return templates.TemplateResponse("interface.html",context)
 
+"""
 classes=["Actividad normal","Dejar","Levantar"]
 
 ViVit_instance=ViViTFactorized(in_channels=3,num_classes=3,num_frames=10,img_size=64)
@@ -89,6 +91,7 @@ async def get_video(video:UploadFile = File(...)):
     return {'response':"Recibido",
             "model_response":model_response,
             "frames":encoder_frames}
+"""
 
 
 if __name__ == "__main__":
