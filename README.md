@@ -3,8 +3,8 @@
 This demo was developed as a tool to demonstrate how a computer vision model predicts actions from video data. The model is able to recognize the following actions:
 
 * Lifting an object
-* Placing an object
 * Normal activity
+* Placing an object
 
 <div><>
 
@@ -35,9 +35,9 @@ dataset/
 │ ├── video_001.mp4
 │ └── ...
 └── validation/
-├── lifting/
-├── placing/
-└── normal/
+  ├── lifting/
+  ├── placing/
+  └── normal/
 ```
 
 To increase the effective size and diversity of the training data, **data augmentation techniques** were applied during preprocessing. These augmentations introduce controlled variations in the input data, improving the model’s robustness to changes in appearance and motion patterns.
@@ -171,6 +171,7 @@ Bootstrap Frontend
 FastAPI Backend
         │
         ▼
+```
 Action Recognition Model
         │
         ▼
