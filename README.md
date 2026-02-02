@@ -2,9 +2,9 @@
 
 This demo was developed as a tool to demonstrate how a computer vision model predicts actions from video data. The model is able to recognize the following actions:
 
-* Lifting an object
-* Normal activity
 * Placing an object
+* Normal activity
+* Lifting an object
 
 <div><>
 
