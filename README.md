@@ -5,11 +5,14 @@ This demo was developed as a tool to demonstrate how a computer vision model pre
 * Lifting an object
 * Placing an object
 * Normal activity
-![Image](https://github.com/user-attachments/assets/165b6f40-9bb9-44a3-a183-a95d47e4a5ce)
 
-![Image](https://github.com/user-attachments/assets/72191915-97b4-4a48-abc9-cb327ebf2bfc)
+<div><>
 
-![Image](https://github.com/user-attachments/assets/2bfca674-d98c-4a66-8150-eeeb215a0a5a)
+<div style="display: flex;">
+  <img src="https://github.com/user-attachments/assets/165b6f40-9bb9-44a3-a183-a95d47e4a5ce" alt="GIF1" width="200" />
+  <img src="https://github.com/user-attachments/assets/72191915-97b4-4a48-abc9-cb327ebf2bfc" alt="GIF2" width="200" />
+  <img src="https://github.com/user-attachments/assets/2bfca674-d98c-4a66-8150-eeeb215a0a5a" alt="GIF3" width="200" />
+</div>
  
 ## 1. Training Dataset Structure
 
