@@ -1,6 +1,8 @@
 # ViViT Demo for Action Recognition in Warehouses
 
-<div> https://github.com/user-attachments/assets/d8520abb-79d2-4f9b-afc9-10a1216cb4f0 </div>
+<div> 
+<img src="https://github.com/user-attachments/assets/16e9fe5e-ce5d-4fc2-b41f-6ca38423caa6" alt="video" width=/>
+</div>
 
 
 This demo was developed as a tool to demonstrate how a computer vision model predicts actions from video data. The model is able to recognize the following actions:
