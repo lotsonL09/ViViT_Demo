@@ -1,7 +1,7 @@
 # ViViT Demo for Action Recognition in Warehouses
 
 <div align="center"> 
-<img src="https://github.com/user-attachments/assets/16e9fe5e-ce5d-4fc2-b41f-6ca38423caa6" alt="video" width="80%" />
+<img src="https://github.com/user-attachments/assets/16e9fe5e-ce5d-4fc2-b41f-6ca38423caa6" alt="video" width="60%" />
 </div>
 
 
