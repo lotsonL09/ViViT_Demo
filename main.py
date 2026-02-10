@@ -26,7 +26,7 @@ async def home(request:Request):
     return templates.TemplateResponse("interface.html",context)
 
 
-classes=["Actividad normal","Dejar","Levantar"]
+classes=["Normal activity","Placing an object","Lifting an object"]
 
 ViVit_instance=ViViTFactorized(in_channels=3,num_classes=3,num_frames=10,img_size=64)
 
@@ -66,6 +66,8 @@ async def get_video(video:UploadFile = File(...)):
         shutil.copyfileobj(video.file,buffer)
     
     original_frames=get_frames(temp_path_2,n_frames=10,transform=None)
+
+    print(original_frames.shape)
 
     encoder_frames=[encode_frame_to_base64(f) for f in original_frames.squeeze(dim=0)]
 
