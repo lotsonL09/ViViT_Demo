@@ -1,10 +1,23 @@
 # ViViT Demo for Action Recognition in Warehouses
 
+<div align="center"> 
+<img src="https://github.com/user-attachments/assets/16e9fe5e-ce5d-4fc2-b41f-6ca38423caa6" alt="video" width="60%" />
+</div>
+
+
 This demo was developed as a tool to demonstrate how a computer vision model predicts actions from video data. The model is able to recognize the following actions:
 
-* Lifting an object
 * Placing an object
 * Normal activity
+* Lifting an object
+
+<div><>
+
+<div style="display: flex;">
+  <img src="https://github.com/user-attachments/assets/165b6f40-9bb9-44a3-a183-a95d47e4a5ce" alt="GIF1" width="200" />
+  <img src="https://github.com/user-attachments/assets/72191915-97b4-4a48-abc9-cb327ebf2bfc" alt="GIF2" width="200" />
+  <img src="https://github.com/user-attachments/assets/2bfca674-d98c-4a66-8150-eeeb215a0a5a" alt="GIF3" width="200" />
+</div>
  
 ## 1. Training Dataset Structure
 
@@ -13,6 +26,7 @@ The model was trained using a structured dataset built from video recordings obt
 ### 1.1 Data Organization
 Video data was organized at the directory level to reflect the training labels. Each subdirectory corresponds to a specific monitoring category.
 
+```
 dataset/
 ├── train/
 │ ├── lifting/
@@ -23,12 +37,13 @@ dataset/
 │ │ ├── video_001.mp4
 │ │ └── ...
 │ └── normal/
-│   ├── video_001.mp4
-│   └── ...
+│ ├── video_001.mp4
+│ └── ...
 └── validation/
   ├── lifting/
   ├── placing/
   └── normal/
+```
 
 To increase the effective size and diversity of the training data, **data augmentation techniques** were applied during preprocessing. These augmentations introduce controlled variations in the input data, improving the model’s robustness to changes in appearance and motion patterns.
 
@@ -151,7 +166,7 @@ python main.py
 ```
 
 ### 3.6 Deployment Overview
-
+```
 User (Web Browser)
         │
         ▼
@@ -161,8 +176,9 @@ Bootstrap Frontend
 FastAPI Backend
         │
         ▼
+```
 Action Recognition Model
         │
         ▼
 Predicted Action
-
+```
